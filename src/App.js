@@ -1,17 +1,12 @@
+
 import './App.css';
+import './Calendar'
+import Calendar from './Calendar';
 
-
-function clickMe(){
-  alert("You clicked me!");
-}
 function App() {
   return (
-    <div>
-    <button onClick={clickMe}>
-      Button
-    </button>
-    
-    
+    <div className="App">
+      <Calendar />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -47,7 +48,7 @@ button {
 }
 button:hover {
   border-color: #9DBEBB;
-  color: blak;
+  color: black;
   box-shadow: 0 .5em .5em -.04em #9DBEBB;
   transform: translateY(-.25em);
   cursor: pointer;
