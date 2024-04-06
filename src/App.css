@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  background: None;
+  color: #77ACA2;
+  border: 2px solid #77ACA2;
+  padding: 1em 2em;
+  font-size: 1em;
+  transition: all .25s;
+}
+button:hover {
+  border-color: #9DBEBB;
+  color: blak;
+  box-shadow: 0 .5em .5em -.04em #9DBEBB;
+  transform: translateY(-.25em);
+  cursor: pointer;
+  
+}
