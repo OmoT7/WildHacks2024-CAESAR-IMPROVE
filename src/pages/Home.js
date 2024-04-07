@@ -1,6 +1,7 @@
 import Card from "../Card"
 import data from "./data"
 
+
 export default function Home(){
     const card = data.map((item) => {
         return <Card image = {item.img} name={item.name} des={item.des} />;

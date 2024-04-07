@@ -1,14 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import ClassList from './ClassList';
+import popup from './ClassPopUp';
+import ClassPopUp from './ClassPopUp';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
 
 const colors = ['Green', 'LimeGreen', 'Lime', 'GreenYellow', 'Yellow', 'Gold', 'Orange', 'DarkOrange', 'OrangeRed', 'Red','FireBrick', 'DarkRed'].reverse();
 
 const PieChart = ({ data }) => {
+
+ 
   const ref = useRef();
-  const colorsRef = useRef([]);
+  // const colorsRef = useRef([]);
+
+  const [selectedSlice, setSelectedSlice] = useState(null);
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [chartData, setData] = useState(data); // Add this line
+  const [showPopup, setShowPopup] = useState(false);
+
 
   useEffect(() => {
+
 
     const expandFactor = 1.1; // Factor by which the slice expands
     const svg = d3.select(ref.current);
@@ -29,7 +41,7 @@ const PieChart = ({ data }) => {
     const legendItem = svg.select('.pie-legend')
       .selectAll('g')
       .data(arcData);
-      
+     
       // Remove any unnecessary items
       legendItem.exit().remove();
       
@@ -78,6 +90,10 @@ const PieChart = ({ data }) => {
                       d3.select(this).transition().duration(300)
                         .attr('d', arcGenerator(d))
                     })
+                    .on('click', function(event, d) {
+                      setSelectedSlice(d.data[1]);
+
+                    })
                     .transition().duration(750)
                     .attrTween('d', function(d) {
                       const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
@@ -104,16 +120,45 @@ const PieChart = ({ data }) => {
                   .remove()
     );
 
+
   }, [data]);
+
+  const handleClassClick = (cls) => {
+    setSelectedClass(cls);
+    const updatedData = data.filter(d => d[2] && d[2].includes(cls));
+    setData(updatedData);
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
+
+ 
+
 
   // Increase the viewBox size by the expandFactor to accommodate the expanded slice
   const viewBoxSize = 1500 * 1.5; // 10% larger than the original size
 
   return (
-    <svg ref={ref} width={1600} height={1300} viewBox={`0 -100 ${viewBoxSize} ${viewBoxSize}`}>
-      <g className="pie-slices" />
-      <g className="pie-legend" transform={`translate(${-210}, 300)`} /> {/* Adjust `legendPosition` as needed */}
-    </svg>
+    <div className="pie-chart-wrapper">
+      <div className="pie-chart">
+        <svg ref={ref} width={1600} height={1300} viewBox={`0 -100 ${viewBoxSize} ${viewBoxSize}`}>
+          <g className="pie-slices" />
+          <g className="pie-legend" transform={`translate(${-210}, 300)`} />
+        </svg>
+      </div>
+      {selectedSlice && showPopup && (
+        <ClassPopUp slice={selectedSlice} onClose={handlePopupClose} />
+      )}
+      {selectedSlice && (
+        <div className="class-list">
+          <ClassList
+            classes={chartData.find(d => d[1] === selectedSlice[1])[3]}
+            onClassClick={handleClassClick}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 
