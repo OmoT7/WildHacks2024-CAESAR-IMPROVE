@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
 let isClicked = false;
 const PieChart = ({ data }) => {
   const ref = useRef();
+  const [selectedArray, setSelectedArray] = useState([]);
   useEffect(() => {
 
     const expandFactor = 1.1; // Factor by which the slice expands
@@ -12,9 +13,9 @@ const PieChart = ({ data }) => {
     const height = +svg.attr('height');
     const radius = Math.min(width, height) / (2 * expandFactor); // Adjust radius based on expansion
     const pie = d3.pie().value(d => d[0]);
-    const arcData = pie(data.sort((a, b) => {
+    let arcData = pie(data.sort((a, b) => {
         if (a[0] === b[0]) {
-          return a[1].localeCompare(b[1]);
+          return b[1].localeCompare(a[1]);
         }
         return a[0] - b[0];
       }));
@@ -55,6 +56,27 @@ const PieChart = ({ data }) => {
         .attr('fill', d => d.data[2]);
       
       legendItem.attr('transform', (d, i) => `translate(-30, ${i * 60})`);
+    arcData = pie(data.sort((a, b) => {
+      if (a[0] === b[0]) {
+        return a[1].localeCompare(b[1]);
+      }
+      return a[0] - b[0];
+    }));
+    svg.select('.array-items').remove();
+
+    // Create a group for array items
+    const arrayGroup = svg.append('g')
+      .attr('class', 'array-items')
+      .attr('transform', `translate(${width - 200}, 50)`); // Positioning the group
+
+    // Add text elements for each item in the array
+    arrayGroup.selectAll('text')
+      .data(selectedArray)
+      .enter()
+      .append('text')
+      .attr('y', (d, i) => i * 30) // Vertical spacing
+      .attr('font-size', '20px')
+      .text(d => d);
 
     const paths = svg.select('.pie-slices').selectAll('path')
       .data(arcData, (d) => d.index);
@@ -84,10 +106,11 @@ const PieChart = ({ data }) => {
                         isClicked = false;
                         isClickedLocal = false;
                       } else if(!isClicked && !isClickedLocal){
+                        d3.select(this).transition()
+                          .attr('d', arcHoverGenerator(d))
                         isClicked = true;
                         isClickedLocal = true;
-                        d3.select(this).transition()
-                        .attr('d', arcHoverGenerator(d))
+                        setSelectedArray(d.data[3]);
                       }
                     })
                     .transition().duration(750)
@@ -116,7 +139,7 @@ const PieChart = ({ data }) => {
                   .remove()
     );
 
-  }, [data]);
+  }, [data, selectedArray]);
 
   // Increase the viewBox size by the expandFactor to accommodate the expanded slice
   const viewBoxSize = 1500 * 1.5; // 10% larger than the original size
