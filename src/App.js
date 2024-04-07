@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import './Calendar'
-import Calendar from './Calendar';
+import './pages/Calendar'
+import Calendar from './pages/Calendar';
 import Navbar from "./Navbar"
 import Home from "./pages/Home"
 import DegreeProgress from "./pages/DegreeProgress"
