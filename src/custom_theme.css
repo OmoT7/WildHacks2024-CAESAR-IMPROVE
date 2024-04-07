@@ -1,0 +1,51 @@
+/* Example custom styles */
+@import url('https://fonts.googleapis.com/css?family=Noto-Serif');
+
+.fc-toolbar-title {
+    font-family: 'Noto-Serif', serif; /* Specify desired font family */
+    font-size: 30px; /* Adjust font size */
+    font-weight: bold; /* Make the font bold */
+    text-align: center; /* Center-align the text */
+}
+.fc-header-toolbar {
+    border-radius: 5px;
+    background-color: #4E2A84;
+    color: #fff;
+}
+
+.fc-daygrid-day {
+    
+    background-color: #E4E0EE;
+    color: #4E2A84;
+    transition: background-color 2s;
+}
+
+.fc-daygrid-day:hover{
+    background-color: #4E2A84;
+    color: #E4E0EE;
+    box-shadow: inset;
+}
+
+
+.fc .fc-button-primary { 
+    font-family: "Noto-Serif";
+    color: #fff; 
+    background-color: #4E2A84 !important; 
+    border-color: #E4E0EE !important; 
+}
+
+/* Hover effect */
+.fc-button:hover {
+    opacity: 0.8; /* Reduce opacity on hover */
+}
+
+/* Add more custom styles as needed */
+
+
+
+.custom-calendar-heading {
+    font-family: 'Noto-Serif' !important;
+    color: #4E2A84; /* Blue text color */
+    font-size: 25px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+}
