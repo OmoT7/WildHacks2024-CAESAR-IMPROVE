@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const colors = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red','green'];
+const colors = ['Green', 'LimeGreen', 'Lime', 'GreenYellow', 'Yellow', 'Gold', 'GoldenRod', 'Orange', 'DarkOrange', 'OrangeRed', 'Red', 'DarkRed'].reverse();
 
 const PieChart = ({ data }) => {
   const ref = useRef();
@@ -14,18 +14,54 @@ const PieChart = ({ data }) => {
     const width = +svg.attr('width');
     const height = +svg.attr('height');
     const radius = Math.min(width, height) / (2 * expandFactor); // Adjust radius based on expansion
-    const pie = d3.pie();
-    const arcData = pie(data);
+    const pie = d3.pie().value(d => d[0]);
+    const arcData = pie(data.sort((a, b) => {
+        if (a[0] === b[0]) {
+          return a[1].localeCompare(b[1]);
+        }
+        return a[0] - b[0];
+      }));
 
     const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
     const arcHoverGenerator = d3.arc().innerRadius(0).outerRadius(radius * expandFactor); // Larger radius for hover
 
     const paths = svg.select('.pie-slices').selectAll('path')
-                     .data(arcData, (d) => d.index);
+        .data(arcData, (d) => d.index);
+
+        const legendItem = svg.select('.pie-legend')
+        .selectAll('g')
+        .data(arcData.reverse());
+      
+      // Remove any unnecessary items
+      legendItem.exit().remove();
+      
+      // Create new items for new data
+      const newLegendItem = legendItem.enter()
+        .append('g')
+        .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+      
+      newLegendItem.append('rect')
+        .attr('width', 10)
+        .attr('height', 10)
+        .attr('fill', (d, i) => colors[i % colors.length]);
+      
+      newLegendItem.append('text')
+        .attr('x', 15)
+        .attr('y', 10)
+        .text(d => d.data[1])
+        .attr('text-anchor', 'start')
+        .attr('alignment-baseline', 'middle');
+      
+      // Update existing items
+      legendItem.select('text')
+        .text(d => d.data[1]);
+      
+      legendItem.attr('transform', (d, i) => `translate(0, ${i * 20})`);
 
     paths.join(
       enter => enter.append('path')
                     .attr('fill', (d, i) => colors[arcData.length-1])
+                    .attr('opacity', 0.7)
                     .attr('transform', `translate(${width / 2}, ${height / 2})`)
                     .attr('stroke', 'white')
                     .attr('stroke-width', '2px')
@@ -64,26 +100,29 @@ const PieChart = ({ data }) => {
                   .remove()
     );
     const labels = svg.select('.pie-labels').selectAll('text')
+                      .attr('font-size', '12px')
                       .data(arcData);
 
     labels.join(
       enter => enter.append('text')
                     .attr('transform', d => `translate(${arcGenerator.centroid(d).map(p => p + width / 2)})`)
                     .attr('text-anchor', 'middle')
-                    .text(d => d.data),
+                    .text(d => d.data[0]),
       update => update.attr('transform', d => `translate(${arcGenerator.centroid(d).map(p => p + width / 2)})`)
-                      .text(d => d.data),
+                      .text(d => d.data[0]),
       exit => exit.remove()
     );
+
   }, [data]);
 
   // Increase the viewBox size by the expandFactor to accommodate the expanded slice
-  const viewBoxSize = 200 * 1.2; // 10% larger than the original size
+  const viewBoxSize = 1000 * 1.3; // 10% larger than the original size
 
   return (
-    <svg ref={ref} width={viewBoxSize} height={viewBoxSize} viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}>
+    <svg ref={ref} width={500} height={500} viewBox={`-200 -20 ${viewBoxSize} ${viewBoxSize}`}>
       <g className="pie-slices" />
-      <g className="pie-labels" />
+      <g className="pie-labels" fontSize="12px" />
+      <g className="pie-legend" transform={`translate(${500}, 500)`} /> {/* Adjust `legendPosition` as needed */}
     </svg>
   );
 };
