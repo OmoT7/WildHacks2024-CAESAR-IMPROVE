@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
 
-const colors = ['Green', 'LimeGreen', 'Lime', 'GreenYellow', 'Yellow', 'Gold', 'Orange', 'DarkOrange', 'OrangeRed', 'Red','FireBrick', 'DarkRed'].reverse();
-
 const PieChart = ({ data }) => {
   const ref = useRef();
   const colorsRef = useRef([]);
