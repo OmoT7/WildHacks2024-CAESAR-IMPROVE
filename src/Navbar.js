@@ -12,7 +12,7 @@ export default function Navbar(){
             </ul>
             <ul>
                 <CustomLink to="degree-progress">Degree Progress</CustomLink>
-                <CustomLink to="classes">Classes</CustomLink>
+                <CustomLink to="courses">Courses</CustomLink>
             </ul>
         </nav>
     )

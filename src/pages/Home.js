@@ -1,4 +1,11 @@
+import Card from "./Card"
+import data from "./data"
+
 export default function Home(){
+    const card = data.map((item) => {
+        return <Card image = {item.img} name={item.name} des={item.des} />;
+      });
+
     return (
         <div>
           <div className="banner-container">
@@ -9,17 +16,9 @@ export default function Home(){
               MyNUDashboard empowers students to make informed decisions about their education. 
                 </h2>
             </div>
+            <div className="wrapper">{card}</div>
           </div>
           
         </div>
       )
-}
-
-function createBox(id, width, height, color) {
-    let box = document.createElement('div');
-    box.setAttribute('id', id);
-    box.style.width = width;
-    box.style.height = height;
-    box.style.backgroundColor = color;
-    return box;
 }
