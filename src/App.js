@@ -14,9 +14,6 @@ function App() {
 
   return (
     <>
-      {/* <h1 className="heading">Web Development</h1>
-      <div className="header_underline"></div>
-      <div className="wrapper">{card}</div> */}
       <Navbar />
       <div className="container">
         <Routes>
@@ -24,6 +21,8 @@ function App() {
           <Route path="/degree-progress" element={<DegreeProgress />} />
           <Route path="/classes" element={<Classes />} />
         </Routes>
+        <div className="header_underline"></div>
+        <div className="wrapper">{card}</div>
       </div>
     </>
   )
