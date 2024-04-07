@@ -7,7 +7,7 @@
 body{
     margin: 0;
     font-family: 'Noto-serif';
-    background-image: url("nu_picture.jpg");
+    background-color: #DCD0F9;
 }
 
 img {
@@ -20,7 +20,7 @@ img {
 }
 
 .container{
-    margin: 1rem;
+    margin: 3rem;
     text-align: center;
 }
 

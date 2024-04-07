@@ -46,11 +46,11 @@ button {
   font-size: 1em;
   transition: all .25s;
 }
-button:hover {
+/* button:hover {
   border-color: #9DBEBB;
   color: black;
   box-shadow: 0 .5em .5em -.04em #9DBEBB;
   transform: translateY(-.25em);
   cursor: pointer;
   
-}
+} */
