@@ -4,6 +4,9 @@ import Home from "./pages/Home"
 import DegreeProgress from "./pages/DegreeProgress"
 import Courses from "./pages/Courses"
 import { Route, Routes } from "react-router-dom"
+import PieChart from './PieChart';
+import React from 'react';
+import { useDegreeData } from './pieload'; // Import the function
 
 function App() {
   return (
@@ -21,5 +24,4 @@ function App() {
 }
 
 export default App;
-
 
