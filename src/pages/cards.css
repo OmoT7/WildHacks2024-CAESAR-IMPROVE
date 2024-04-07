@@ -1,0 +1,19 @@
+.card img {
+  margin-top: 30px;
+  width: 200px;
+  height: 200px;
+}
+
+.card h2{
+  margin-bottom: 50px;
+  margin-top: 50px;
+  font-size: 30px;
+}
+
+.card p{
+  border: solid #4E2A84;
+  border-radius: 10px;
+  padding: 40px; 
+  background-color: #E4E0EE;
+  font-size: 20px;
+}
