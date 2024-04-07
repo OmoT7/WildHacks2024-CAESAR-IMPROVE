@@ -1,4 +1,4 @@
-import logo from "./pages/myNUDashboard.png";
+import logo from "./myNUDashboard.png";
 
 export default[
     {

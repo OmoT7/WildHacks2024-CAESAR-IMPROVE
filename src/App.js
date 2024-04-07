@@ -1,23 +1,23 @@
 import './App.css';
-import './Calendar'
-import Calendar from './Calendar';
+import './pages/Calendar'
+import Calendar from './pages/Calendar';
 import Navbar from "./Navbar"
 import Home from "./pages/Home"
 import DegreeProgress from "./pages/DegreeProgress"
 import Classes from "./pages/Classes"
 import { Route, Routes } from "react-router-dom"
 import Card from "./Card"
-import data from "./data"
-import PieChart from './PieChart';
+import data from "./pages/data"
+import PieChart from './pages/PieChart';
 import React from 'react';
-import { useDegreeData } from './pieload'; // Import the function
+import { useDegreeData } from './pages/pieload'; // Import the function
 
 function App() {
   const card = data.map((item) => {
     return <Card image = {item.img} name={item.name} des={item.des} />;
   });
 
-  const data = useDegreeData(); // Use the function to get the data
+   // Use the function to get the data
 
   return (
     <>

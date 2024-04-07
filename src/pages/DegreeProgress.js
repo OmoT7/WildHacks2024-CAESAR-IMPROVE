@@ -1,3 +1,15 @@
+import PieChart from "./PieChart"
+import { useDegreeData } from './pieload'; 
 export default function Home(){
-    return <h1>Degree Progress</h1>
+
+    const data2 = useDegreeData();
+    return (
+        
+        <div className="DegreeP">
+            <header className="Degree-header">
+            <PieChart data={data2} />
+            </header>
+        </div>
+
+    )
 }

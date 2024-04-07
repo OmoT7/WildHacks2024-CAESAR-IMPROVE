@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
 const degree_vars = [
-  [0,"Completed"],
-  [5,"Requirements"],
-  [3,"Advanced Electives"],
-  [5,"Breadth Courses"],
-  [2,"Project Courses"],
-  [6,"Technical Electives"],
-  [4,"Math"],
-  [4,"General Engineering"],
-  [4,"Basic Science"],
-  [3,"Design and Communication"],
-  [7,"Theme"],
-  [5,"Unrestricted"]
+  [0,"Completed",'Green'],
+  [5,"Requirements", 'OrangeRed'],
+  [3,"Advanced Electives", 'GreenYellow'],
+  [5,"Breadth Courses", 'Red'],
+  [2,"Project Courses", 'LimeGreen'],
+  [6,"Technical Electives", 'FireBrick'],
+  [4,"Math", 'Yellow'],
+  [4,"General Engineering", 'Gold'],
+  [4,"Basic Science", 'Orange'],
+  [3,"Design and Communication", 'Lime'],
+  [7,"Theme",'DarkRed'],
+  [5,"Unrestricted", 'DarkOrange']
 ];
 
 export function useDegreeData() {

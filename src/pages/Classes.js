@@ -1,3 +1,5 @@
+import Calendar from "./Calendar";
+
 export default function Home(){
-    return <h1>Classes</h1>
+    return <Calendar/>
 }
