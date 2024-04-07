@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
-
+let isClicked = false;
 const PieChart = ({ data }) => {
   const ref = useRef();
-  const colorsRef = useRef([]);
-
   useEffect(() => {
 
     const expandFactor = 1.1; // Factor by which the slice expands
@@ -60,6 +58,7 @@ const PieChart = ({ data }) => {
 
     const paths = svg.select('.pie-slices').selectAll('path')
       .data(arcData, (d) => d.index);
+    let isClickedLocal = false;
     paths.join(
       enter => enter.append('path')
                     .attr('fill', (d) => d.data[2])
@@ -69,12 +68,27 @@ const PieChart = ({ data }) => {
                     .attr('stroke-width', '2px')
                     .each(function(d) { this._current = d; })
                     .on('mouseover', function(event, d) {
-                      d3.select(this).transition().duration(300)
+                      if(!isClicked){
+                        d3.select(this).transition().duration(300)
                         .attr('d', arcHoverGenerator(d))
+                      }
                     })
                     .on('mouseout', function(event, d) {
-                      d3.select(this).transition().duration(300)
-                        .attr('d', arcGenerator(d))
+                      if(!isClicked){
+                        d3.select(this).transition().duration(300)
+                          .attr('d', arcGenerator(d))
+                      }
+                    })
+                    .on('click', function(event, d) {
+                      if(isClicked && isClickedLocal){
+                        isClicked = false;
+                        isClickedLocal = false;
+                      } else if(!isClicked && !isClickedLocal){
+                        isClicked = true;
+                        isClickedLocal = true;
+                        d3.select(this).transition()
+                        .attr('d', arcHoverGenerator(d))
+                      }
                     })
                     .transition().duration(750)
                     .attrTween('d', function(d) {
