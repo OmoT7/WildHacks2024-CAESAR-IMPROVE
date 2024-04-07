@@ -1,4 +1,4 @@
-import Card from "./Card"
+import Card from "../Card"
 import data from "./data"
 
 export default function Home(){
