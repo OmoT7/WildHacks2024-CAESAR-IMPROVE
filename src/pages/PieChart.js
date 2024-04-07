@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
 let isClicked = false;
