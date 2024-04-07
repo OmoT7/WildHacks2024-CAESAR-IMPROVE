@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import ClassList from './ClassList';
-import popup from './ClassPopUp';
-import ClassPopUp from './ClassPopUp';
 <link href="https://fonts.googleapis.com/css?family=Noto-Serif" rel="stylesheet"></link>
 let isClicked = false;
 const PieChart = ({ data }) => {
@@ -125,16 +122,6 @@ const PieChart = ({ data }) => {
 
   }, [data]);
 
-  const handleClassClick = (cls) => {
-    setSelectedClass(cls);
-    const updatedData = data.filter(d => d[2] && d[2].includes(cls));
-    setData(updatedData);
-  };
-
-  const handlePopupClose = () => {
-    setShowPopup(false);
-  };
-
  
 
 
@@ -149,19 +136,8 @@ const PieChart = ({ data }) => {
           <g className="pie-legend" transform={`translate(${-210}, 300)`} />
         </svg>
       </div>
-      {selectedSlice && showPopup && (
-        <ClassPopUp slice={selectedSlice} onClose={handlePopupClose} />
-      )}
-      {selectedSlice && (
-        <div className="class-list">
-          <ClassList
-            classes={chartData.find(d => d[1] === selectedSlice[1])[3]}
-            onClassClick={handleClassClick}
-          />
-        </div>
-      )}
     </div>
-  );
+  );  
 };
 
 export default PieChart;
